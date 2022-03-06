@@ -1,0 +1,81 @@
+---
+
+- name: Load variables based on OS type
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "family-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+        - "family-{{ ansible_os_family }}.yml"
+        - default.yml
+      paths:
+        - "vars"
+
+- name: Install nginx packages
+  ansible.builtin.package:
+    name: "{{ nginx_packages }}"
+    state: present
+
+- name: Create SSL directory
+  file:
+    path: "{{ nginx_ssl_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+   
+- name: Provision SSL private key
+  copy:
+    src: "{{ nginx_ssl_key }}"
+    dest: "{{ nginx_ssl_path }}/{{ nginx_ssl_key | basename }}"
+    owner: root
+    group: root
+    mode: "0600"
+  notify: Restart nginx
+  when: nginx_ssl_key is defined
+
+- name: Provision SSL certificate
+  copy:
+    src: "{{ nginx_ssl_crt }}"
+    dest: "{{ nginx_ssl_path }}/{{ nginx_ssl_crt | basename }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart nginx
+  when: nginx_ssl_crt is defined
+
+- name: Creating nginx configuration file
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: "{{ nginx_confd_path }}/{{ item | basename | regex_replace('.j2$') }}"
+    owner: root
+    group: root
+    mode: '0755'
+  loop: "{{ nginx_confd_templates }}"
+  notify: Restart nginx
+
+- name: Let nginx contact network resources
+  ansible.posix.seboolean:
+    name: "{{ item }}"
+    persistent: yes
+    state: yes
+  loop:
+    - httpd_can_network_connect
+    - httpd_can_network_relay
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_selinux['status'] == 'enabled'
+
+- name: Remove link to 'sites-enabled/default'
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Restart nginx
+
+- name: Start nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes

@@ -1,0 +1,11 @@
+generic:
+  role_description: |
+    Install/configure/manage nginx
+molecule:
+  converge:
+    vars:
+      nginx_ssl_key: files/test.key
+      nginx_ssl_crt: files/test.crt
+      nginx_confd_templates:
+        - templates/test.conf.j2
+
