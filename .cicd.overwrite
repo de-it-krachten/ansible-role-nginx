@@ -4,8 +4,8 @@ generic:
 molecule:
   converge:
     vars:
-      nginx_ssl_key: files/test.key
-      nginx_ssl_crt: files/test.crt
       nginx_confd_templates:
-        - templates/test.conf.j2
-
+        - server_name: test.example.com
+          template: templates/test.conf.j2
+          ssl_key: files/test.key
+          ssl_crt: files/test.crt

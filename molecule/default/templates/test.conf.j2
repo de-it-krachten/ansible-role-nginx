@@ -1,8 +1,11 @@
 server {
+
     listen              443 ssl;
-    server_name         www.example.com;
-    ssl_certificate     {{ nginx_ssl_path }}/test.crt;
-    ssl_certificate_key {{ nginx_ssl_path }}/test.key;
-    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    server_name         {{ nginx_server_name }};
+
+    ssl_certificate     {{ nginx_ssl_crt }};
+    ssl_certificate_key {{ nginx_ssl_key }};
+    ssl_protocols       TLSv1.2 TLSv1.3;
     ssl_ciphers         HIGH:!aNULL:!MD5;
+
 }

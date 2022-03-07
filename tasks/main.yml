@@ -13,10 +13,10 @@
       paths:
         - "vars"
 
-#- name: Install nginx packages
-#  ansible.builtin.package:
-#    name: "{{ nginx_packages }}"
-#    state: present
+- name: Install nginx packages
+  ansible.builtin.package:
+    name: "{{ nginx_packages }}"
+    state: present
 
 - name: Provision SSL private keys
   ansible.builtin.copy:
@@ -32,7 +32,7 @@
 - name: Provision SSL certificates
   ansible.builtin.copy:
     src: "{{ item.ssl_crt }}"
-    dest: "{{ nginx_ssl_crt_path }}/{{ item.server_name if(item.server_name|type_debug=='str') else item.server_name[0] }}.crt"
+    dest: "{{ nginx_ssl_crt_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.crt"
     owner: root
     group: root
     mode: "0644"
@@ -43,12 +43,12 @@
 - name: Creating nginx configuration files
   ansible.builtin.template:
     src: "{{ item.template }}"
-    dest: "{{ nginx_confd_path }}/{{ item.server_name if(item.server_name|type_debug=='str') else item.server_name[0] }}.conf"
+    dest: "{{ nginx_confd_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.conf"
     owner: root
     group: root
     mode: '0755'
   vars:
-    nginx_server_name: "{{ item.server_name if item.server_name is string else (item.server_name|join(' '))}}"
+    nginx_server_name: "{{ item.server_name if item.server_name is string else (item.server_name|join(' ')) }}"
     nginx_ssl_key: "{{ nginx_ssl_key_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.key"
     nginx_ssl_crt: "{{ nginx_ssl_crt_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.crt"
   loop: "{{ nginx_confd_templates }}"

@@ -3,39 +3,7 @@
 - name: Converge
   hosts: all
   vars:
-    nginx_ssl_key: files/test.key
-    nginx_ssl_crt: files/test.crt
-    nginx_confd_templates: ['templates/test.conf.j2']
-  pre_tasks:
-
-    - name: Install openssl
-      package:
-        name: openssl
-        state: present
- 
-    - name: Create private key
-      openssl_privatekey:
-        path: "{{ playbook_dir }}/files/test.key"
-        size: 2048
-      become: no
-      delegate_to: localhost
-
-    - name: Create CSR
-      openssl_csr:
-        path: "{{ playbook_dir }}/files/test.csr"
-        privatekey_path: "{{ playbook_dir }}/files/test.key"
-      become: no
-      delegate_to: localhost
-
-    - name: Perform a self-sign of the certificate
-      openssl_certificate:
-        provider: selfsigned
-        path: "{{ playbook_dir }}/files/test.crt"
-        privatekey_path: "{{ playbook_dir }}/files/test.key"
-        csr_path: "{{ playbook_dir }}/files/test.csr"
-      become: no
-      delegate_to: localhost
-
+    nginx_confd_templates: [{'server_name': 'test.example.com', 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt'}]
   tasks:
     - name: Include role 'ansible-role-nginx'
       include_role:

@@ -34,9 +34,6 @@ nginx_confd_path: /etc/nginx/conf.d
 
 # list of drop-in config templates
 nginx_confd_templates: []
-
-# nginx SSL path
-nginx_ssl_path: /etc/nginx/certs
 </pre></code>
 
 
