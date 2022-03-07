@@ -19,7 +19,7 @@
     state: present
 
 - name: Create SSL directory
-  file:
+  ansible.builtin.file:
     path: "{{ nginx_ssl_path }}"
     state: directory
     owner: root
@@ -27,29 +27,31 @@
     mode: "0755"
    
 - name: Provision SSL private key
-  copy:
-    src: "{{ nginx_ssl_key }}"
-    dest: "{{ nginx_ssl_path }}/{{ nginx_ssl_key | basename }}"
+  ansible.builtin.copy:
+    src: "{{ item.ssl_key }}"
+    dest: "{{ nginx_ssl_path }}/{{ item.ssl_key | basename | regex_replace('.vaulted') }}"
     owner: root
     group: root
     mode: "0600"
   notify: Restart nginx
-  when: nginx_ssl_key is defined
+  loop: "{{ nginx_confd_templates }}"
+  when: item.ssl_key is defined
 
 - name: Provision SSL certificate
-  copy:
-    src: "{{ nginx_ssl_crt }}"
-    dest: "{{ nginx_ssl_path }}/{{ nginx_ssl_crt | basename }}"
+  ansible.builtin.copy:
+    src: "{{ item.ssl_crt }}"
+    dest: "{{ nginx_ssl_path }}/{{ item.ssl_crt | basename | regex_replace('.vaulted') }}"
     owner: root
     group: root
     mode: "0644"
   notify: Restart nginx
-  when: nginx_ssl_crt is defined
+  loop: "{{ nginx_confd_templates }}"
+  when: item.ssl_crt is defined
 
 - name: Creating nginx configuration file
   ansible.builtin.template:
-    src: "{{ item }}"
-    dest: "{{ nginx_confd_path }}/{{ item | basename | regex_replace('.j2$') }}"
+    src: "{{ item.template }}"
+    dest: "{{ nginx_confd_path }}/{{ item.template | basename | regex_replace('.j2$') }}"
     owner: root
     group: root
     mode: '0755'
