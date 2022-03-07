@@ -1,0 +1,7 @@
+---
+
+# Default private key location
+nginx_ssl_key_path: /etc/pki/tls/private
+
+# Default certificate location
+nginx_ssl_crt_path: /etc/pki/tls/certs

@@ -1,0 +1,10 @@
+---
+
+- name: Converge
+  hosts: all
+  vars:
+    nginx_confd_templates: [{'server_name': 'test.example.com', 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt'}]
+  tasks:
+    - name: Include role 'ansible-role-nginx'
+      include_role:
+        name: ansible-role-nginx

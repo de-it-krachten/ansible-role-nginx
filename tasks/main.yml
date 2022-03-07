@@ -1,0 +1,79 @@
+---
+
+- name: Load variables based on OS type
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_distribution }}.yml"
+        - "family-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
+        - "family-{{ ansible_os_family }}.yml"
+        - default.yml
+      paths:
+        - "vars"
+
+- name: Install nginx packages
+  ansible.builtin.package:
+    name: "{{ nginx_packages }}"
+    state: present
+
+- name: Provision SSL private keys
+  ansible.builtin.copy:
+    src: "{{ item.ssl_key }}"
+    dest: "{{ nginx_ssl_key_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.key"
+    owner: root
+    group: root
+    mode: "0600"
+  notify: Restart nginx
+  loop: "{{ nginx_confd_templates }}"
+  when: item.ssl_key is defined
+
+- name: Provision SSL certificates
+  ansible.builtin.copy:
+    src: "{{ item.ssl_crt }}"
+    dest: "{{ nginx_ssl_crt_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.crt"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart nginx
+  loop: "{{ nginx_confd_templates }}"
+  when: item.ssl_crt is defined
+
+- name: Creating nginx configuration files
+  ansible.builtin.template:
+    src: "{{ item.template }}"
+    dest: "{{ nginx_confd_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.conf"
+    owner: root
+    group: root
+    mode: '0755'
+  vars:
+    nginx_server_name: "{{ item.server_name if item.server_name is string else (item.server_name|join(' ')) }}"
+    nginx_ssl_key: "{{ nginx_ssl_key_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.key"
+    nginx_ssl_crt: "{{ nginx_ssl_crt_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.crt"
+  loop: "{{ nginx_confd_templates }}"
+  notify: Restart nginx
+
+- name: Let nginx contact network resources
+  ansible.posix.seboolean:
+    name: "{{ item }}"
+    persistent: yes
+    state: yes
+  loop:
+    - httpd_can_network_connect
+    - httpd_can_network_relay
+  when:
+    - ansible_os_family == 'RedHat'
+    - ansible_selinux['status'] == 'enabled'
+
+- name: Remove link to 'sites-enabled/default'
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Restart nginx
+
+- name: Start nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes
