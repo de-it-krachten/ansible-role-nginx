@@ -60,6 +60,7 @@
     nginx_root: "{{ item.root | default('') }}"
     nginx_ssl_key: "{{ nginx_ssl_key_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.key"
     nginx_ssl_crt: "{{ nginx_ssl_crt_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.crt"
+    nginx_locations: "{{ item.locations | default([]) }}"
   loop: "{{ nginx_confd_templates }}"
   loop_control:
     label:
