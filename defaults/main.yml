@@ -1,9 +1,5 @@
 ---
 
-# Nginx packages 
-nginx_packages:
-  - nginx
-
 # Directory to put drop-in config files into
 nginx_confd_path: /etc/nginx/conf.d
 

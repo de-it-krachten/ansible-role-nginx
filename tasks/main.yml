@@ -27,6 +27,10 @@
     mode: "0600"
   notify: Restart nginx
   loop: "{{ nginx_confd_templates }}"
+  loop_control:
+    label:
+      "src": "{{ item.ssl_key }}"
+      "dest": "{{ nginx_ssl_key_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.key"
   when: item.ssl_key is defined
 
 - name: Provision SSL certificates
@@ -38,6 +42,10 @@
     mode: "0644"
   notify: Restart nginx
   loop: "{{ nginx_confd_templates }}"
+  loop_control:
+    label:
+      "src": "{{ item.ssl_crt }}"
+      "dest": "{{ nginx_ssl_key_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.crt"
   when: item.ssl_crt is defined
 
 - name: Creating nginx configuration files
@@ -49,9 +57,15 @@
     mode: '0755'
   vars:
     nginx_server_name: "{{ item.server_name if item.server_name is string else (item.server_name|join(' ')) }}"
+    nginx_root: "{{ item.root | default('') }}"
     nginx_ssl_key: "{{ nginx_ssl_key_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.key"
     nginx_ssl_crt: "{{ nginx_ssl_crt_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.crt"
+    nginx_locations: "{{ item.locations | default([]) }}"
   loop: "{{ nginx_confd_templates }}"
+  loop_control:
+    label:
+      "src": "{{ item.template }}"
+      "dest": "{{ nginx_confd_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.conf"
   notify: Restart nginx
 
 - name: Let nginx contact network resources
