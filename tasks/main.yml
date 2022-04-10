@@ -54,7 +54,7 @@
     dest: "{{ nginx_confd_path }}/{{ item.server_name if (item.server_name|type_debug=='str') else item.server_name[0] }}.conf"
     owner: root
     group: root
-    mode: '0755'
+    mode: '0644'
   vars:
     nginx_server_name: "{{ item.server_name if item.server_name is string else (item.server_name|join(' ')) }}"
     nginx_root: "{{ item.root | default('') }}"
