@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.1.0...v1.1.1) (2022-04-10)
+
+
+### Bug Fixes
+
+* update config permissions from 755 -> 644 ([b014227](https://github.com/de-it-krachten/ansible-role-nginx/commit/b01422796f7b3439386cda40f12904c13ba8a744))
+
 # [1.1.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.0.0...v1.1.0) (2022-03-12)
 
 
