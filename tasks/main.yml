@@ -13,6 +13,19 @@
       paths:
         - "vars"
 
+- name: Create default server configuration
+  template:
+    src: default.conf.j2
+    dest: "{{ nginx_confd_path }}/default.conf"
+    owner: root
+    group: root
+    mode: "0644"
+    force: false
+  notify: Restart nginx
+  when:
+    - ansible_os_family == 'Debian'
+    - nginx_default_server|bool
+
 - name: Install nginx packages
   ansible.builtin.package:
     name: "{{ nginx_packages }}"

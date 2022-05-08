@@ -20,6 +20,7 @@ Supported platforms
 - Debian 11 (Bullseye)
 - Ubuntu 18.04 LTS
 - Ubuntu 20.04 LTS
+- Ubuntu 22.04 LTS
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -32,6 +33,9 @@ nginx_confd_path: /etc/nginx/conf.d
 
 # list of drop-in config templates
 nginx_confd_templates: []
+
+# Create default server (port 80)
+nginx_default_server: false
 </pre></code>
 
 
