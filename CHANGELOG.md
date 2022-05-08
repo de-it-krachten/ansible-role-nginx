@@ -1,3 +1,11 @@
+# [1.2.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.1.1...v1.2.0) (2022-05-08)
+
+
+### Features
+
+* add support for Ubuntu 22.04 ([bf670cb](https://github.com/de-it-krachten/ansible-role-nginx/commit/bf670cb9292ee2789b36756763378e97a9563812))
+* optional default server configuration ([1439968](https://github.com/de-it-krachten/ansible-role-nginx/commit/1439968887c2693e092f881d83b3551cb278d4fd))
+
 ## [1.1.1](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.1.0...v1.1.1) (2022-04-10)
 
 
