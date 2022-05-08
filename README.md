@@ -32,6 +32,9 @@ nginx_confd_path: /etc/nginx/conf.d
 
 # list of drop-in config templates
 nginx_confd_templates: []
+
+# Create default server (port 80)
+nginx_default_server: false
 </pre></code>
 
 
