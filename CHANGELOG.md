@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.2.0...v1.2.1) (2022-05-16)
+
+
+### Bug Fixes
+
+* /etc/nginx/config.d is now created after nginx installation ([334f2a8](https://github.com/de-it-krachten/ansible-role-nginx/commit/334f2a8a345a44f2255c2ccce29fbe810b4139b0))
+
 # [1.2.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.1.1...v1.2.0) (2022-05-08)
 
 
