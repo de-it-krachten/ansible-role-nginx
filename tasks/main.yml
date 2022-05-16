@@ -13,6 +13,11 @@
       paths:
         - "vars"
 
+- name: Install nginx packages
+  ansible.builtin.package:
+    name: "{{ nginx_packages }}"
+    state: present
+
 - name: Create default server configuration
   template:
     src: default.conf.j2
@@ -25,11 +30,6 @@
   when:
     - ansible_os_family == 'Debian'
     - nginx_default_server|bool
-
-- name: Install nginx packages
-  ansible.builtin.package:
-    name: "{{ nginx_packages }}"
-    state: present
 
 - name: Provision SSL private keys
   ansible.builtin.copy:
