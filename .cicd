@@ -127,6 +127,10 @@ ci_templates:
     src: molecule/templates/molecule.yml.j2
     dest: molecule/default/molecule.yml.j2
     when: molecule_active
+  molecule-test.yml:
+    src: molecule/templates/molecule-test.yml
+    dest: molecule/default/molecule-test.yml
+    when: molecule_active
   converge.yml:
     src: molecule/templates/converge.yml
     dest: molecule/default/converge.yml
@@ -147,3 +151,8 @@ ci_templates:
     src: git/templates/gitignore
     dest: .gitignore
     force: false
+  ansible-lint:
+    src: molecule/templates/ansible-lint
+    dest: .ansible-lint
+    force: no
+    when: molecule_active
