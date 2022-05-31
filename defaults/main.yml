@@ -8,3 +8,14 @@ nginx_confd_templates: []
 
 # Create default server (port 80)
 nginx_default_server: false
+
+# should the firewall be managed by this role
+nginx_manage_firewall: false
+
+# Default firewall ports
+nginx_fw_ports:
+  - { port: 80, proto: tcp }
+  - { port: 443, proto: tcp }
+
+# Should vhosts be created
+nginx_create_vhosts: true

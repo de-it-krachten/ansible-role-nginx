@@ -8,4 +8,8 @@ server {
     ssl_protocols       TLSv1.2 TLSv1.3;
     ssl_ciphers         HIGH:!aNULL:!MD5;
 
+    root                {{ nginx_root }};
+    access_log          {{ nginx_logdir }}/access.log;
+    error_log           {{ nginx_logdir }}/error.log;
+
 }

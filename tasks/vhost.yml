@@ -1,0 +1,80 @@
+---
+
+- name: Define vhost
+  set_fact:
+    vhost: "{{ nginx_vhost.name | default(nginx_vhost.server_name if (nginx_vhost.server_name|type_debug=='str') else nginx_vhost.server_name[0]) }}"
+
+- name: Display vhost
+  debug:
+    msg: "Starting vhost '{{ vhost }}'"
+
+- name: Simplify some variables
+  set_fact:
+    nginx_server_name: "{{ nginx_vhost.server_name if nginx_vhost.server_name is string else (nginx_vhost.server_name|join(' ')) }}"
+    nginx_root: "{{ nginx_vhost.root | default('') }}"
+    nginx_ssl_key: "{{ nginx_ssl_key_path }}/{{ vhost }}.key"
+    nginx_ssl_crt: "{{ nginx_ssl_crt_path }}/{{ vhost }}.crt"
+    nginx_locations: "{{ nginx_vhost.locations | default([]) }}"
+    nginx_logdir: "{{ nginx_vhost.logdir | default('/var/log/nginx') }}"
+    nginx_access_log: "{{ nginx_vhost.access_log | default('/var/log/nginx/access.log') }}"
+    nginx_error_log: "{{ nginx_vhost.error_log | default('/var/log/nginx/error.log') }}"
+
+- name: Create vhost root directory parent
+  file:
+    path: "{{ nginx_vhost.root | dirname }}"
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  when: nginx_vhost.root is defined
+
+- name: Create vhost root directory
+  file:
+    path: "{{ nginx_vhost.root }}"
+    state: directory
+    owner: "{{ nginx_vhost.owner | default('root') }}"
+    group: "{{ nginx_vhost.group | default('root') }}"
+    mode: "{{ nginx_vhost.mode | default('0755') }}"
+  when: nginx_vhost.root is defined
+
+- name: Create vhost log directory
+  file:
+    path: "{{ nginx_vhost.logdir }}"
+    state: directory
+    owner: "root"
+    group: "root"
+    mode: "0755"
+  when:
+    - nginx_vhost.logdir is defined
+    - nginx_vhost.logdir != '/var/log/nginx'
+
+- name: Provision SSL private keys
+  ansible.builtin.copy:
+    src: "{{ nginx_vhost.ssl_key }}"
+    dest: "{{ nginx_ssl_key_path }}/{{ vhost }}.key"
+    owner: root
+    group: root
+    mode: "0600"
+    remote_src: "{{ nginx_vhost.ssl_remote | default(False) }}"
+  notify: Restart nginx
+  when: nginx_vhost.ssl_key is defined
+
+- name: Provision SSL certificates
+  ansible.builtin.copy:
+    src: "{{ nginx_vhost.ssl_crt }}"
+    dest: "{{ nginx_ssl_crt_path }}/{{ vhost }}.crt"
+    owner: root
+    group: root
+    mode: "0644"
+    remote_src: "{{ nginx_vhost.ssl_remote | default(False) }}"
+  notify: Restart nginx
+  when: nginx_vhost.ssl_crt is defined
+
+- name: Creating nginx configuration files
+  ansible.builtin.template:
+    src: "{{ nginx_vhost.template }}"
+    dest: "{{ nginx_confd_path }}/{{ vhost }}.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart nginx
