@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.2.1...v1.3.0) (2022-05-31)
+
+
+### Bug Fixes
+
+* make it possible to exclude vhost creation ([3450605](https://github.com/de-it-krachten/ansible-role-nginx/commit/34506058c5b65837a76814302dacc7a59b6fb68a))
+
+
+### Features
+
+* move vhost code into separate task list ([9c7526f](https://github.com/de-it-krachten/ansible-role-nginx/commit/9c7526f93bc21df4845a1fa0a5c94a652e23f0e0))
+
 ## [1.2.1](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.2.0...v1.2.1) (2022-05-16)
 
 
