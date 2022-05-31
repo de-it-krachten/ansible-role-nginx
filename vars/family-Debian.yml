@@ -10,3 +10,6 @@ nginx_ssl_key_path: /etc/ssl/private
 
 # Default certificate location
 nginx_ssl_crt_path: /etc/ssl/certs
+
+# php socket
+nginx_php_socket: /etc/alternatives/php-fpm.sock

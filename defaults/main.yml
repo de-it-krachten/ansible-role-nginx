@@ -16,3 +16,6 @@ nginx_manage_firewall: false
 nginx_fw_ports:
   - { port: 80, proto: tcp }
   - { port: 443, proto: tcp }
+
+# Should vhosts be created
+nginx_create_vhosts: true

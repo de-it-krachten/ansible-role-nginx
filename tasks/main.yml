@@ -36,6 +36,7 @@
   loop: "{{ nginx_confd_templates }}"
   loop_control:
     loop_var: nginx_vhost
+  when: nginx_create_vhosts|bool
     
 - name: Let nginx contact network resources
   ansible.posix.seboolean:
