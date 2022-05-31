@@ -1,6 +1,9 @@
+---
+
 generic:
   role_description: |
     Install/configure/manage nginx
+
 molecule:
   converge:
     vars:
