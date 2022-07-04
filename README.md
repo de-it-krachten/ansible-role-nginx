@@ -14,7 +14,6 @@ Supported platforms
 - Red Hat Enterprise Linux 8<sup>1</sup>
 - Red Hat Enterprise Linux 9<sup>1</sup>
 - CentOS 7
-- CentOS 8
 - RockyLinux 8
 - OracleLinux 8
 - AlmaLinux 8
@@ -83,6 +82,23 @@ nginx_ssl_crt_path: /etc/ssl/certs
 
 # php socket
 nginx_php_socket: /etc/alternatives/php-fpm.sock
+</pre></code>
+
+### vars/family-RedHat-9.yml
+<pre><code>
+# nginx packages
+nginx_packages:
+  - nginx
+
+# nginx pip packages
+nginx_pip_packages:
+  - passlib
+
+# Default private key location
+nginx_ssl_key_path: /etc/pki/tls/private
+
+# Default certificate location
+nginx_ssl_crt_path: /etc/pki/tls/certs
 </pre></code>
 
 ### vars/family-RedHat-8.yml
