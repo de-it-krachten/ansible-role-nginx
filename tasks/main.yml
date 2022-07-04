@@ -18,6 +18,11 @@
     name: "{{ nginx_packages }}"
     state: present
 
+- name: Install nginx pip packages
+  pip:
+    name: "{{ nginx_pip_packages|default([]) }}"
+    state: present
+
 - name: Create default server configuration
   template:
     src: default.conf.j2
