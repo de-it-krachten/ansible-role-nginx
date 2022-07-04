@@ -20,7 +20,7 @@
 
 - name: Install nginx pip packages
   pip:
-    name: "{{ nginx_pip_packages }}"
+    name: "{{ nginx_pip_packages|default([]) }}"
     state: present
 
 - name: Create default server configuration
