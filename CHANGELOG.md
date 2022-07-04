@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.3.0...v1.4.0) (2022-07-04)
+
+
+### Features
+
+* Add support for RHEL9 ([c0a9419](https://github.com/de-it-krachten/ansible-role-nginx/commit/c0a9419397445d5a8bed03509c384134d600dfc1))
+
 # [1.3.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.2.1...v1.3.0) (2022-05-31)
 
 
