@@ -15,6 +15,7 @@ Supported platforms
 - Red Hat Enterprise Linux 9<sup>1</sup>
 - CentOS 7
 - RockyLinux 8
+- RockyLinux 9
 - OracleLinux 8
 - AlmaLinux 8
 - AlmaLinux 9
@@ -136,6 +137,7 @@ nginx_ssl_crt_path: /etc/pki/tls/certs
 <pre><code>
 - name: sample playbook for role 'nginx'
   hosts: all
+  become: "{{ molecule['converge']['become'] | default('yes') }}"
   vars:
     nginx_confd_templates: [{'server_name': 'test.example.com', 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/test.example.com/html', 'logdir': '/var/www/test.example.com/logs'}, {'name': 'www.example.com', 'server_name': ['www.example.com', 'foo.example.com'], 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/www.example.com/html'}]
   tasks:
