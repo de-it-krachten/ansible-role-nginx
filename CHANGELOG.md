@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.4.0...v1.5.0) (2022-07-28)
+
+
+### Features
+
+* Implement ansible-lint v6 support ([48bd6e2](https://github.com/de-it-krachten/ansible-role-nginx/commit/48bd6e2ed24379d0c60fab8c75361de48ef524e7))
+
 # [1.4.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.3.0...v1.4.0) (2022-07-04)
 
 
