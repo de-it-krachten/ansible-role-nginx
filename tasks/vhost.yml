@@ -78,3 +78,13 @@
     group: root
     mode: '0644'
   notify: Restart nginx
+
+- name: Create test index.html
+  template:
+    src: templates/vhost.index.html.j2
+    dest: "{{ nginx_vhost.root }}/index.html"
+    owner: "{{ nginx_vhost.owner | default('root') }}"
+    group: "{{ nginx_vhost.group | default('root') }}"
+    mode: "0644"
+    force: no
+  when: nginx_index_html is defined and nginx_index_html|bool

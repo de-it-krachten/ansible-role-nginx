@@ -19,3 +19,6 @@ nginx_fw_ports:
 
 # Should vhosts be created
 nginx_create_vhosts: true
+
+# nginx service
+nginx_service: nginx

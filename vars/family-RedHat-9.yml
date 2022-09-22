@@ -13,3 +13,7 @@ nginx_ssl_key_path: /etc/pki/tls/private
 
 # Default certificate location
 nginx_ssl_crt_path: /etc/pki/tls/certs
+
+# default nginx user/group
+nginx_user: nginx
+nginx_group: nginx
