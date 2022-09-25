@@ -13,3 +13,7 @@ nginx_ssl_crt_path: /etc/ssl/certs
 
 # php socket
 nginx_php_socket: /etc/alternatives/php-fpm.sock
+
+# default nginx user/group
+nginx_user: www-data
+nginx_group: www-data

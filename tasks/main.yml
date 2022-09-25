@@ -73,3 +73,10 @@
   vars:
     firewall_ports: "{{ nginx_fw_ports }}"
   when: nginx_manage_firewall|bool
+
+- name: Set boolean so we know which webserver is used
+  set_fact:
+    webserver_in_use: nginx
+    webserver_service: "{{ nginx_service }}"
+    webserver_user: "{{ nginx_user }}"
+    webserver_group: "{{ nginx_group }}"

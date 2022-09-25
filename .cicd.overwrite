@@ -5,8 +5,17 @@ generic:
     Install/configure/manage nginx
 
 molecule:
+  requirements:
+    roles_extra:
+      - openssl
   converge:
+    roles:
+      - openssl
     vars:
+      openssl_fqdn: server.example.com
+      openssl_fqdn_additional:
+        - vhost1.example.com
+        - vhost2.example.com
       nginx_confd_templates:
         - server_name: test.example.com
           template: templates/test.conf.j2
