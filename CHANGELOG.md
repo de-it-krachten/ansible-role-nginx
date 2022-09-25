@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.5.0...v1.5.1) (2022-09-25)
+
+
+### Bug Fixes
+
+* Save webserver info for other playbooks/roles to use ([0eb515b](https://github.com/de-it-krachten/ansible-role-nginx/commit/0eb515b151e289475ec868c5c9303b7afae4e819))
+
 # [1.5.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.4.0...v1.5.0) (2022-07-28)
 
 
