@@ -6,6 +6,16 @@
 Install/configure/manage nginx
 
 
+
+## Dependencies
+
+#### Roles
+None
+
+#### Collections
+- community.general
+- ansible.posix
+
 ## Platforms
 
 Supported platforms
@@ -52,7 +62,11 @@ nginx_fw_ports:
 
 # Should vhosts be created
 nginx_create_vhosts: true
+
+# nginx service
+nginx_service: nginx
 </pre></code>
+
 
 ### vars/Fedora.yml
 <pre><code>
@@ -66,6 +80,10 @@ nginx_ssl_key_path: /etc/pki/tls/private
 
 # Default certificate location
 nginx_ssl_crt_path: /etc/pki/tls/certs
+
+# default nginx user/group
+nginx_user: nginx
+nginx_group: nginx
 </pre></code>
 
 ### vars/family-Debian.yml
@@ -83,6 +101,10 @@ nginx_ssl_crt_path: /etc/ssl/certs
 
 # php socket
 nginx_php_socket: /etc/alternatives/php-fpm.sock
+
+# default nginx user/group
+nginx_user: www-data
+nginx_group: www-data
 </pre></code>
 
 ### vars/family-RedHat-9.yml
@@ -100,6 +122,10 @@ nginx_ssl_key_path: /etc/pki/tls/private
 
 # Default certificate location
 nginx_ssl_crt_path: /etc/pki/tls/certs
+
+# default nginx user/group
+nginx_user: nginx
+nginx_group: nginx
 </pre></code>
 
 ### vars/family-RedHat-8.yml
@@ -114,6 +140,10 @@ nginx_ssl_key_path: /etc/pki/tls/private
 
 # Default certificate location
 nginx_ssl_crt_path: /etc/pki/tls/certs
+
+# default nginx user/group
+nginx_user: nginx
+nginx_group: nginx
 </pre></code>
 
 ### vars/family-RedHat-7.yml
@@ -128,6 +158,10 @@ nginx_ssl_key_path: /etc/pki/tls/private
 
 # Default certificate location
 nginx_ssl_crt_path: /etc/pki/tls/certs
+
+# default nginx user/group
+nginx_user: nginx
+nginx_group: nginx
 </pre></code>
 
 
@@ -139,9 +173,19 @@ nginx_ssl_crt_path: /etc/pki/tls/certs
   hosts: all
   become: "{{ molecule['converge']['become'] | default('yes') }}"
   vars:
+    openssl_fqdn: server.example.com
+    openssl_fqdn_additional: ['vhost1.example.com', 'vhost2.example.com']
     nginx_confd_templates: [{'server_name': 'test.example.com', 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/test.example.com/html', 'logdir': '/var/www/test.example.com/logs'}, {'name': 'www.example.com', 'server_name': ['www.example.com', 'foo.example.com'], 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/www.example.com/html'}]
+  pre_tasks:
+    - name: Create 'remote_tmp'
+      ansible.builtin.file:
+        path: /root/.ansible/tmp
+        state: directory
+        mode: "0700"
+  roles:
+    - openssl
   tasks:
     - name: Include role 'nginx'
-      include_role:
+      ansible.builtin.include_role:
         name: nginx
 </pre></code>
