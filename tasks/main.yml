@@ -19,12 +19,12 @@
     state: present
 
 - name: Install nginx pip packages
-  pip:
-    name: "{{ nginx_pip_packages|default([]) }}"
+  ansible.builtin.pip:
+    name: "{{ nginx_pip_packages | default([]) }}"
     state: present
 
 - name: Create default server configuration
-  template:
+  ansible.builtin.template:
     src: default.conf.j2
     dest: "{{ nginx_confd_path }}/default.conf"
     owner: root
@@ -34,15 +34,15 @@
   notify: Restart nginx
   when:
     - ansible_os_family == 'Debian'
-    - nginx_default_server|bool
+    - nginx_default_server | bool
 
 - name: Create all vhosts
-  include_tasks: vhost.yml
+  ansible.builtin.include_tasks: vhost.yml
   loop: "{{ nginx_confd_templates }}"
   loop_control:
     loop_var: nginx_vhost
-  when: nginx_create_vhosts|bool
-    
+  when: nginx_create_vhosts | bool
+
 - name: Let nginx contact network resources
   ansible.posix.seboolean:
     name: "{{ item }}"
@@ -68,14 +68,14 @@
     enabled: yes
 
 - name: Configuring firewall for postfix (ports)
-  include_role:
+  ansible.builtin.include_role:
     name: firewall
   vars:
     firewall_ports: "{{ nginx_fw_ports }}"
-  when: nginx_manage_firewall|bool
+  when: nginx_manage_firewall | bool
 
 - name: Set boolean so we know which webserver is used
-  set_fact:
+  ansible.builtin.set_fact:
     webserver_in_use: nginx
     webserver_service: "{{ nginx_service }}"
     webserver_user: "{{ nginx_user }}"
