@@ -27,6 +27,7 @@ Supported platforms
 - RockyLinux 8
 - RockyLinux 9
 - OracleLinux 8
+- OracleLinux 9
 - AlmaLinux 8
 - AlmaLinux 9
 - Debian 10 (Buster)
@@ -34,8 +35,8 @@ Supported platforms
 - Ubuntu 18.04 LTS
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
-- Fedora 35
 - Fedora 36
+- Fedora 37
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -171,17 +172,11 @@ nginx_group: nginx
 <pre><code>
 - name: sample playbook for role 'nginx'
   hosts: all
-  become: "{{ molecule['converge']['become'] | default('yes') }}"
+  become: "yes"
   vars:
     openssl_fqdn: server.example.com
     openssl_fqdn_additional: ['vhost1.example.com', 'vhost2.example.com']
     nginx_confd_templates: [{'server_name': 'test.example.com', 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/test.example.com/html', 'logdir': '/var/www/test.example.com/logs'}, {'name': 'www.example.com', 'server_name': ['www.example.com', 'foo.example.com'], 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/www.example.com/html'}]
-  pre_tasks:
-    - name: Create 'remote_tmp'
-      ansible.builtin.file:
-        path: /root/.ansible/tmp
-        state: directory
-        mode: "0700"
   roles:
     - openssl
   tasks:

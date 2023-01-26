@@ -2,17 +2,11 @@
 
 - name: Converge
   hosts: all
-  become: "{{ molecule['converge']['become'] | default('yes') }}"
+  become: "yes"
   vars:
     openssl_fqdn: server.example.com
     openssl_fqdn_additional: ['vhost1.example.com', 'vhost2.example.com']
     nginx_confd_templates: [{'server_name': 'test.example.com', 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/test.example.com/html', 'logdir': '/var/www/test.example.com/logs'}, {'name': 'www.example.com', 'server_name': ['www.example.com', 'foo.example.com'], 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/www.example.com/html'}]
-  pre_tasks:
-    - name: Create 'remote_tmp'
-      ansible.builtin.file:
-        path: /root/.ansible/tmp
-        state: directory
-        mode: "0700"
   roles:
     - openssl
   tasks:
