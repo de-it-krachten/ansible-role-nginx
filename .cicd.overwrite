@@ -7,11 +7,14 @@ generic:
 molecule:
   requirements:
     roles_extra:
-      - openssl
+      - deitkrachten.openssl
+      - deitkrachten.python
   converge:
     roles:
-      - openssl
+      - deitkrachten.python
+      - deitkrachten.openssl
     vars:
+      python_package_install_optional: true
       openssl_fqdn: server.example.com
       openssl_fqdn_additional:
         - vhost1.example.com
