@@ -36,6 +36,14 @@
     - ansible_os_family == 'Debian'
     - nginx_default_server | bool
 
+- name: Ensure certs directory exists
+  ansible.builtin.file:
+    path: "{{ nginx_certs_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0750"
+
 - name: Create all vhosts
   ansible.builtin.include_tasks: vhost.yml
   loop: "{{ nginx_confd_templates }}"
