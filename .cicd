@@ -3,7 +3,7 @@
 # Generic
 generic:
   org: deitkrachten
-  role: ansible-role-nginx
+  role: nginx
   role_short: nginx
   role_description: |
     <put description in .cicd.overwrite>
@@ -358,7 +358,7 @@ github:
   fail_fast: false
   parallel: true
   owner: de-it-krachten
-  repo: ansible-role-nginx
+  repo: nginx
   lint_matrix:
     - name: ansible_2.9
       ansible: "ansible==2.9.27"
