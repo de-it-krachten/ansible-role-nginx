@@ -1,7 +1,7 @@
-[![CI](https://github.com/de-it-krachten/nginx/workflows/CI/badge.svg?event=push)](https://github.com/de-it-krachten/nginx/actions?query=workflow%3ACI)
+[![CI](https://github.com/de-it-krachten/ansible-role-nginx/workflows/CI/badge.svg?event=push)](https://github.com/de-it-krachten/ansible-role-nginx/actions?query=workflow%3ACI)
 
 
-# nginx
+# ansible-role-nginx
 
 Install/configure/manage nginx
 
@@ -71,13 +71,15 @@ nginx_create_vhosts: true
 nginx_service: nginx
 </pre></code>
 
-
-### vars/family-Debian.yml
+### defaults/family-Debian.yml
 <pre><code>
 # nginx packages
 nginx_packages:
   - nginx
   - python3-passlib
+
+# nginx pip packages
+nginx_pip_packages: []
 
 # Default private key location
 nginx_ssl_key_path: /etc/ssl/private
@@ -93,7 +95,7 @@ nginx_user: www-data
 nginx_group: www-data
 </pre></code>
 
-### vars/family-RedHat-9.yml
+### defaults/family-RedHat-9.yml
 <pre><code>
 # nginx packages
 nginx_packages:
@@ -114,12 +116,15 @@ nginx_user: nginx
 nginx_group: nginx
 </pre></code>
 
-### vars/family-RedHat-8.yml
+### defaults/family-RedHat-8.yml
 <pre><code>
 # nginx packages
 nginx_packages:
   - nginx
   - python3-passlib
+
+# nginx pip packages
+nginx_pip_packages: []
 
 # Default private key location
 nginx_ssl_key_path: /etc/pki/tls/private
@@ -132,13 +137,16 @@ nginx_user: nginx
 nginx_group: nginx
 </pre></code>
 
-### vars/family-RedHat-7.yml
+### defaults/family-RedHat-7.yml
 <pre><code>
 # nginx packages
 nginx_packages:
   - nginx
   - python-passlib
 
+# nginx pip packages
+nginx_pip_packages: []
+
 # Default private key location
 nginx_ssl_key_path: /etc/pki/tls/private
 
@@ -150,13 +158,16 @@ nginx_user: nginx
 nginx_group: nginx
 </pre></code>
 
-### vars/Fedora.yml
+### defaults/Fedora.yml
 <pre><code>
 # nginx packages
 nginx_packages:
   - nginx
   - python3-passlib
 
+# nginx pip packages
+nginx_pip_packages: []
+
 # Default private key location
 nginx_ssl_key_path: /etc/pki/tls/private
 
@@ -167,6 +178,7 @@ nginx_ssl_crt_path: /etc/pki/tls/certs
 nginx_user: nginx
 nginx_group: nginx
 </pre></code>
+
 
 
 
@@ -182,7 +194,6 @@ nginx_group: nginx
     openssl_fqdn_additional: ['vhost1.example.com', 'vhost2.example.com']
     nginx_confd_templates: [{'server_name': 'test.example.com', 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/test.example.com/html', 'logdir': '/var/www/test.example.com/logs'}, {'name': 'www.example.com', 'server_name': ['www.example.com', 'foo.example.com'], 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/www.example.com/html'}]
   roles:
-    - deitkrachten.showinfo
     - deitkrachten.python
     - deitkrachten.openssl
   tasks:

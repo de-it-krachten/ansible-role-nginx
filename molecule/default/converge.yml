@@ -9,10 +9,9 @@
     openssl_fqdn_additional: ['vhost1.example.com', 'vhost2.example.com']
     nginx_confd_templates: [{'server_name': 'test.example.com', 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/test.example.com/html', 'logdir': '/var/www/test.example.com/logs'}, {'name': 'www.example.com', 'server_name': ['www.example.com', 'foo.example.com'], 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/www.example.com/html'}]
   roles:
-    - deitkrachten.showinfo
     - deitkrachten.python
     - deitkrachten.openssl
   tasks:
-    - name: Include role 'nginx'
+    - name: Include role 'ansible-role-nginx'
       ansible.builtin.include_role:
-        name: nginx
+        name: ansible-role-nginx
