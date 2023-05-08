@@ -23,7 +23,7 @@ Supported platforms
 - Red Hat Enterprise Linux 7<sup>1</sup>
 - Red Hat Enterprise Linux 8<sup>1</sup>
 - Red Hat Enterprise Linux 9<sup>1</sup>
-- CentOS 7
+- CentOS 7<sup>1</sup>
 - RockyLinux 8
 - RockyLinux 9
 - OracleLinux 8
@@ -189,6 +189,7 @@ nginx_group: nginx
   hosts: all
   become: "yes"
   vars:
+    ansible_python_interpreter: /usr/bin/python3
     python_package_install_optional: True
     openssl_fqdn: server.example.com
     openssl_fqdn_additional: ['vhost1.example.com', 'vhost2.example.com']
