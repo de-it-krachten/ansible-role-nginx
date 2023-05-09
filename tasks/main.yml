@@ -1,17 +1,8 @@
 ---
 
-- name: Load variables based on OS type
-  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
-  vars:
-    params:
-      files:
-        - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
-        - "{{ ansible_distribution }}.yml"
-        - "family-{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
-        - "family-{{ ansible_os_family }}.yml"
-        - default.yml
-      paths:
-        - "vars"
+- name: Load defaults based on OS type
+  ansible.builtin.include_tasks:
+    file: vars.yml
 
 - name: Install nginx packages
   ansible.builtin.package:
@@ -20,7 +11,7 @@
 
 - name: Install nginx pip packages
   ansible.builtin.pip:
-    name: "{{ nginx_pip_packages | default([]) }}"
+    name: "{{ nginx_pip_packages }}"
     state: present
 
 - name: Create default server configuration
@@ -35,6 +26,14 @@
   when:
     - ansible_os_family == 'Debian'
     - nginx_default_server | bool
+
+- name: Ensure certs directory exists
+  ansible.builtin.file:
+    path: "{{ nginx_certs_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0750"
 
 - name: Create all vhosts
   ansible.builtin.include_tasks: vhost.yml
@@ -69,7 +68,7 @@
 
 - name: Configuring firewall for postfix (ports)
   ansible.builtin.include_role:
-    name: firewall
+    name: deitkrachten.firewall
   vars:
     firewall_ports: "{{ nginx_fw_ports }}"
   when: nginx_manage_firewall | bool

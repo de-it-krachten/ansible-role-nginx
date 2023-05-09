@@ -1,17 +1,32 @@
 ---
 
+# Generic
 generic:
   role_description: |
     Install/configure/manage nginx
 
+# Supported platforms
+platforms:
+  centos7:
+    ci: false
+    supported: true
+
+# Molecule
 molecule:
+  prepare:
+    vars:
+      activate_epel: true
   requirements:
     roles_extra:
-      - openssl
+      - deitkrachten.openssl
+      - deitkrachten.python
   converge:
     roles:
-      - openssl
+      - deitkrachten.python
+      - deitkrachten.openssl
     vars:
+      ansible_python_interpreter: /usr/bin/python3
+      python_package_install_optional: true
       openssl_fqdn: server.example.com
       openssl_fqdn_additional:
         - vhost1.example.com

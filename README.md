@@ -23,10 +23,11 @@ Supported platforms
 - Red Hat Enterprise Linux 7<sup>1</sup>
 - Red Hat Enterprise Linux 8<sup>1</sup>
 - Red Hat Enterprise Linux 9<sup>1</sup>
-- CentOS 7
+- CentOS 7<sup>1</sup>
 - RockyLinux 8
 - RockyLinux 9
 - OracleLinux 8
+- OracleLinux 9
 - AlmaLinux 8
 - AlmaLinux 9
 - Debian 10 (Buster)
@@ -34,8 +35,8 @@ Supported platforms
 - Ubuntu 18.04 LTS
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
-- Fedora 35
 - Fedora 36
+- Fedora 37
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -45,6 +46,9 @@ Note:
 <pre><code>
 # Directory to put drop-in config files into
 nginx_confd_path: /etc/nginx/conf.d
+
+# Directory to put certificates & keys into
+nginx_certs_path: /etc/nginx/certs
 
 # list of drop-in config templates
 nginx_confd_templates: []
@@ -67,31 +71,15 @@ nginx_create_vhosts: true
 nginx_service: nginx
 </pre></code>
 
-
-### vars/Fedora.yml
+### defaults/family-Debian.yml
 <pre><code>
 # nginx packages
 nginx_packages:
   - nginx
   - python3-passlib
 
-# Default private key location
-nginx_ssl_key_path: /etc/pki/tls/private
-
-# Default certificate location
-nginx_ssl_crt_path: /etc/pki/tls/certs
-
-# default nginx user/group
-nginx_user: nginx
-nginx_group: nginx
-</pre></code>
-
-### vars/family-Debian.yml
-<pre><code>
-# nginx packages
-nginx_packages:
-  - nginx
-  - python3-passlib
+# nginx pip packages
+nginx_pip_packages: []
 
 # Default private key location
 nginx_ssl_key_path: /etc/ssl/private
@@ -107,7 +95,7 @@ nginx_user: www-data
 nginx_group: www-data
 </pre></code>
 
-### vars/family-RedHat-9.yml
+### defaults/family-RedHat-9.yml
 <pre><code>
 # nginx packages
 nginx_packages:
@@ -128,13 +116,16 @@ nginx_user: nginx
 nginx_group: nginx
 </pre></code>
 
-### vars/family-RedHat-8.yml
+### defaults/family-RedHat-8.yml
 <pre><code>
 # nginx packages
 nginx_packages:
   - nginx
   - python3-passlib
 
+# nginx pip packages
+nginx_pip_packages: []
+
 # Default private key location
 nginx_ssl_key_path: /etc/pki/tls/private
 
@@ -146,13 +137,16 @@ nginx_user: nginx
 nginx_group: nginx
 </pre></code>
 
-### vars/family-RedHat-7.yml
+### defaults/family-RedHat-7.yml
 <pre><code>
 # nginx packages
 nginx_packages:
   - nginx
   - python-passlib
 
+# nginx pip packages
+nginx_pip_packages: []
+
 # Default private key location
 nginx_ssl_key_path: /etc/pki/tls/private
 
@@ -163,6 +157,28 @@ nginx_ssl_crt_path: /etc/pki/tls/certs
 nginx_user: nginx
 nginx_group: nginx
 </pre></code>
+
+### defaults/Fedora.yml
+<pre><code>
+# nginx packages
+nginx_packages:
+  - nginx
+  - python3-passlib
+
+# nginx pip packages
+nginx_pip_packages: []
+
+# Default private key location
+nginx_ssl_key_path: /etc/pki/tls/private
+
+# Default certificate location
+nginx_ssl_crt_path: /etc/pki/tls/certs
+
+# default nginx user/group
+nginx_user: nginx
+nginx_group: nginx
+</pre></code>
+
 
 
 
@@ -171,19 +187,16 @@ nginx_group: nginx
 <pre><code>
 - name: sample playbook for role 'nginx'
   hosts: all
-  become: "{{ molecule['converge']['become'] | default('yes') }}"
+  become: "yes"
   vars:
+    ansible_python_interpreter: /usr/bin/python3
+    python_package_install_optional: True
     openssl_fqdn: server.example.com
     openssl_fqdn_additional: ['vhost1.example.com', 'vhost2.example.com']
     nginx_confd_templates: [{'server_name': 'test.example.com', 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/test.example.com/html', 'logdir': '/var/www/test.example.com/logs'}, {'name': 'www.example.com', 'server_name': ['www.example.com', 'foo.example.com'], 'template': 'templates/test.conf.j2', 'ssl_key': 'files/test.key', 'ssl_crt': 'files/test.crt', 'root': '/var/www/www.example.com/html'}]
-  pre_tasks:
-    - name: Create 'remote_tmp'
-      ansible.builtin.file:
-        path: /root/.ansible/tmp
-        state: directory
-        mode: "0700"
   roles:
-    - openssl
+    - deitkrachten.python
+    - deitkrachten.openssl
   tasks:
     - name: Include role 'nginx'
       ansible.builtin.include_role:

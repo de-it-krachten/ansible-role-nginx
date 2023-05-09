@@ -3,7 +3,10 @@
 # nginx packages
 nginx_packages:
   - nginx
-  - python-passlib
+  - python3-passlib
+
+# nginx pip packages
+nginx_pip_packages: []
 
 # Default private key location
 nginx_ssl_key_path: /etc/pki/tls/private
