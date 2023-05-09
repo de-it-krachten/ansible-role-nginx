@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.6.0...v1.7.0) (2023-05-09)
+
+
+### Features
+
+* Move to namespaced role names ([5ee9ef2](https://github.com/de-it-krachten/ansible-role-nginx/commit/5ee9ef2d58f244ab42f95d9bb818aa3aad2cb1ea))
+* Move to OS specific defaults ([1722d8a](https://github.com/de-it-krachten/ansible-role-nginx/commit/1722d8a4e2578a0f3966a0df6c0b7f41ca0b28aa))
+
 # [1.6.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.5.1...v1.6.0) (2022-10-12)
 
 
