@@ -10,12 +10,19 @@ platforms:
   centos7:
     ci: false
     supported: true
+  opensuse15:
+    ci: true
+    supported: true
+  sles15:
+    ci: false
+    supported: true
 
 # Molecule
 molecule:
   prepare:
     vars:
       activate_epel: true
+      prepare_firewall: true
   requirements:
     roles_extra:
       - deitkrachten.openssl

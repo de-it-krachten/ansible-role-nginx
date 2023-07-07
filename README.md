@@ -30,13 +30,14 @@ Supported platforms
 - OracleLinux 9
 - AlmaLinux 8
 - AlmaLinux 9
+- SUSE Linux Enterprise<sup>1</sup>
+- openSUSE Leap 15
 - Debian 10 (Buster)
 - Debian 11 (Bullseye)
-- Ubuntu 18.04 LTS
 - Ubuntu 20.04 LTS
 - Ubuntu 22.04 LTS
-- Fedora 36
 - Fedora 37
+- Fedora 38
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
@@ -110,6 +111,27 @@ nginx_ssl_key_path: /etc/pki/tls/private
 
 # Default certificate location
 nginx_ssl_crt_path: /etc/pki/tls/certs
+
+# default nginx user/group
+nginx_user: nginx
+nginx_group: nginx
+</pre></code>
+
+### defaults/family-Suse.yml
+<pre><code>
+# nginx packages
+nginx_packages:
+  - nginx
+  - python3-passlib
+
+# nginx pip packages
+nginx_pip_packages: []
+
+# Default private key location
+nginx_ssl_key_path: /etc/ssl/private
+
+# Default certificate location
+nginx_ssl_crt_path: /etc/ssl/certs
 
 # default nginx user/group
 nginx_user: nginx
