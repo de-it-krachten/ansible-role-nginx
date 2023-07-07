@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.7.0...v1.8.0) (2023-07-07)
+
+
+### Features
+
+* Add support for SLES/OpenSUSE Leap 15 ([fa1b0fe](https://github.com/de-it-krachten/ansible-role-nginx/commit/fa1b0fe5e9fbeecfaa9ddb4bcf269830a9e9fc84))
+
 # [1.7.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.6.0...v1.7.0) (2023-05-09)
 
 
