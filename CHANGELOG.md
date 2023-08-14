@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.8.0...v1.9.0) (2023-08-14)
+
+
+### Features
+
+* Update supported platforms & CI ([4cead1e](https://github.com/de-it-krachten/ansible-role-nginx/commit/4cead1e3b821bd24bc7086632a4b8525b7d810ee))
+
 # [1.8.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.7.0...v1.8.0) (2023-07-07)
 
 
