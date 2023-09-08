@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.9.0...v1.9.1) (2023-09-08)
+
+
+### Bug Fixes
+
+* Fix loop label to string ([a41943b](https://github.com/de-it-krachten/ansible-role-nginx/commit/a41943baf8518ad7c6aa6e19b4df0e3e8a9ec4a6))
+
 # [1.9.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.8.0...v1.9.0) (2023-08-14)
 
 
