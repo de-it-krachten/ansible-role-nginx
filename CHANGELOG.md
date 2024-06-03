@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.9.1...v1.10.0) (2024-06-03)
+
+
+### Features
+
+* Add support for Ubuntu 24.04 LTS + Fedora 40 ([3d035b5](https://github.com/de-it-krachten/ansible-role-nginx/commit/3d035b5a8a45b96e06d77ab8b8a66c81e498dd9e))
+
 ## [1.9.1](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.9.0...v1.9.1) (2023-09-08)
 
 
