@@ -100,28 +100,27 @@ nginx_user: www-data
 nginx_group: www-data
 </pre></code>
 
+### defaults/family-RedHat-10.yml
+<pre><code>
+# nginx packages
+nginx_packages:
+  - nginx
+  # - python3-passlib  # For RHEL 10.0, package not yet in EPEL
+
+# nginx pip packages
+nginx_pip_packages:
+  - passlib
+</pre></code>
+
 ### defaults/family-RedHat-7.yml
 <pre><code>
 # nginx packages
 nginx_packages:
   - nginx
   - python-passlib
-
-# nginx pip packages
-nginx_pip_packages: []
-
-# Default private key location
-nginx_ssl_key_path: /etc/pki/tls/private
-
-# Default certificate location
-nginx_ssl_crt_path: /etc/pki/tls/certs
-
-# default nginx user/group
-nginx_user: nginx
-nginx_group: nginx
 </pre></code>
 
-### defaults/family-RedHat-8.yml
+### defaults/family-RedHat.yml
 <pre><code>
 # nginx packages
 nginx_packages:
@@ -130,27 +129,6 @@ nginx_packages:
 
 # nginx pip packages
 nginx_pip_packages: []
-
-# Default private key location
-nginx_ssl_key_path: /etc/pki/tls/private
-
-# Default certificate location
-nginx_ssl_crt_path: /etc/pki/tls/certs
-
-# default nginx user/group
-nginx_user: nginx
-nginx_group: nginx
-</pre></code>
-
-### defaults/family-RedHat-9.yml
-<pre><code>
-# nginx packages
-nginx_packages:
-  - nginx
-
-# nginx pip packages
-nginx_pip_packages:
-  - passlib
 
 # Default private key location
 nginx_ssl_key_path: /etc/pki/tls/private
