@@ -1,3 +1,14 @@
+# [1.12.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.11.0...v1.12.0) (2025-08-07)
+
+
+### Features
+
+* Add support for AlmaLinux 10 ([75e80c6](https://github.com/de-it-krachten/ansible-role-nginx/commit/75e80c614fd9ded072ea559bdee899d9245546e0))
+* Add support for Debian 13 (Trixie) ([10ac64b](https://github.com/de-it-krachten/ansible-role-nginx/commit/10ac64b198934bb4710851663829a795fd519ffc))
+* Add support for OracleLinux 10 ([3bcb342](https://github.com/de-it-krachten/ansible-role-nginx/commit/3bcb34214c003a97de0246fe8093a8dee754e28f))
+* Add support for Red Hat Enterprise Linux 10 ([6e631d1](https://github.com/de-it-krachten/ansible-role-nginx/commit/6e631d1f2150adba9fefe3879d09fa998c996ff8))
+* Add support for RockyLinux 10 ([111a3e5](https://github.com/de-it-krachten/ansible-role-nginx/commit/111a3e53e216ec07c82ac97d48bd20cd3a02f5ac))
+
 # [1.11.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.10.0...v1.11.0) (2024-12-29)
 
 
