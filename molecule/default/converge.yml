@@ -4,6 +4,7 @@
   hosts: all
   become: "yes"
   vars:
+    molecule_driver: "{{ lookup('env', 'MOLECULE_DRIVER_NAME') }}"
     ansible_python_interpreter: /usr/bin/python3
     python_package_install_optional: True
     openssl_fqdn: server.example.com

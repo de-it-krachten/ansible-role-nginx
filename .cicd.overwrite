@@ -11,11 +11,11 @@ platforms:
     ci: false
     supported: true
   opensuse15:
-    ci: true
-    supported: true
+    ci: false
+    supported: false
   sles15:
     ci: false
-    supported: true
+    supported: false
 
 # Molecule
 molecule:
