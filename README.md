@@ -37,8 +37,8 @@ Supported platforms
 - Debian 13 (Trixie)
 - Ubuntu 22.04 LTS
 - Ubuntu 24.04 LTS
-- Fedora 41
 - Fedora 42
+- Fedora 43
 
 Note:
 <sup>1</sup> : no automated testing is performed on these platforms
