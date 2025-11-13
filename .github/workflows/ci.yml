@@ -69,14 +69,14 @@ jobs:
 
       - name: Install test dependencies.
         run: |
+          set -vx
           sudo rm -f /usr/bin/yq
           python3 -m venv ~/.venv
           source ~/.venv/bin/activate
           pip3 install pip wheel setuptools --upgrade
           pip3 install "${{ matrix.ansible }}" "${{ matrix.ansible_lint }}" yamllint jmespath yq e2j2 jinja2-ansible-filters
           pip3 list
-          set -vx
-          ansible-galaxy collection --help
+          ansible-galaxy role list
           ansible-galaxy collection list
 
       - name: Retrieve & install wrapper scripts
