@@ -75,6 +75,7 @@ jobs:
           pip3 install pip wheel setuptools --upgrade
           pip3 install "${{ matrix.ansible }}" "${{ matrix.ansible_lint }}" yamllint jmespath yq e2j2 jinja2-ansible-filters
           pip3 list
+          ansible-galaxy collection --help
           ansible-galaxy collection list
 
       - name: Retrieve & install wrapper scripts
@@ -331,6 +332,7 @@ jobs:
           pip3 install "requests<2.29" "urllib3<2"
 
           pip3 list
+          ansible-galaxy collection --help
           ansible-galaxy collection list
 
         env:
