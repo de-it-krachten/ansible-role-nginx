@@ -7,9 +7,6 @@ generic:
 
 # Supported platforms
 platforms:
-  centos7:
-    ci: false
-    supported: true
   opensuse15:
     ci: false
     supported: false

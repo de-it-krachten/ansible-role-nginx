@@ -14,7 +14,6 @@ galaxy_info:
         - '8'
         - '9'
         - '10'
-        - '7'
     - name: Debian
       versions:
         - bullseye
