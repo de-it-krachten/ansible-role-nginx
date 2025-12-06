@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.12.0...v1.12.1) (2025-12-06)
+
+
+### Bug Fixes
+
+* Remove support for RHEL7 ([1811c9a](https://github.com/de-it-krachten/ansible-role-nginx/commit/1811c9a5ca54e5b09ed0df1e017c8386790ebef3))
+
 # [1.12.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.11.0...v1.12.0) (2025-08-07)
 
 
