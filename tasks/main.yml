@@ -24,7 +24,7 @@
     force: false
   notify: Restart nginx
   when:
-    - ansible_os_family == 'Debian'
+    - ansible_facts.os_family == 'Debian'
     - nginx_default_server | bool
 
 - name: Ensure certs directory exists
@@ -51,8 +51,8 @@
     - httpd_can_network_connect
     - httpd_can_network_relay
   when:
-    - ansible_os_family == 'RedHat'
-    - ansible_selinux['status'] == 'enabled'
+    - ansible_facts.os_family == 'RedHat'
+    - ansible_facts.selinux['status'] == 'enabled'
 
 - name: Remove link to 'sites-enabled/default'
   ansible.builtin.file:
