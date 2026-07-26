@@ -1,3 +1,18 @@
+# [1.13.0](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.12.1...v1.13.0) (2026-07-26)
+
+
+### Bug Fixes
+
+* Standarize vars.yml ([fed3671](https://github.com/de-it-krachten/ansible-role-nginx/commit/fed36717834c06f14f5016d1340181e40b4835c5))
+
+
+### Features
+
+* Add support for ansible-core 2.20+ ([7e5ba59](https://github.com/de-it-krachten/ansible-role-nginx/commit/7e5ba59b5d4fa9384a352271291a980e9cd7871d))
+* Added support for Fedora 44 ([56aa3a7](https://github.com/de-it-krachten/ansible-role-nginx/commit/56aa3a75a792b00dc6374e74e01d13fa6aa92bdb))
+* Added support for Ubuntu 26.04 LTS ([a5bdb83](https://github.com/de-it-krachten/ansible-role-nginx/commit/a5bdb8376d7ec921f963304c2e23e3261a18c1c8))
+* Drop support for Fedora 42 ([0ead9f7](https://github.com/de-it-krachten/ansible-role-nginx/commit/0ead9f7f4fcffa03058e531f9f7b3bd35dbeff39))
+
 ## [1.12.1](https://github.com/de-it-krachten/ansible-role-nginx/compare/v1.12.0...v1.12.1) (2025-12-06)
 
 
